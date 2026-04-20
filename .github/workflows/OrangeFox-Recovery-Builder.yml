@@ -114,7 +114,6 @@ jobs:
         source build/envsetup.sh
         export ALLOW_MISSING_DEPENDENCIES=true
         set -e
-        # 统一使用 twrp_ 前缀，因为 OrangeFox 产品名通常为 twrp_设备代号
         lunch twrp_${{ github.event.inputs.DEVICE_NAME }}-eng && make clean && mka adbd ${{ github.event.inputs.BUILD_TARGET }}image
 
     - name: Set Build Date
@@ -193,7 +192,7 @@ jobs:
           
     - name: Release ramdisk-recovery
       if: env.CHECK_IMG_IS_OK == 'true'
-      uses: softprops/action-gh-release@4634c16e79c963287e889244c50009e7f0981
+      uses: softprops/action-gh-release@v1
       with:
         files: |
           ${{ env.FILE_PATH }}/obj/PACKAGING/vendor_ramdisk_fragments_intermediates/recovery.*
